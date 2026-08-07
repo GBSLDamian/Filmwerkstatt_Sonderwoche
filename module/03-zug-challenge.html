@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Modul 3: Die Zug-Challenge – Filmwerkstatt Sonderwoche</title>
-<meta name="description" content="Modul 3: 4 praktische 5-Minuten-Challenges, direkt im Zug mit der eigenen Handykamera gefilmt.">
+<meta name="description" content="Modul 3: Plane und filme deine erste Mini-Produktion – die Zugfahrt-Doku, mit echtem Drehplan-Tool.">
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -27,22 +27,63 @@
   </div>
 
   <section class="card card--scenario">
-    <span class="tag">Praxis</span>
-    <h1>Die Zug-Challenge</h1>
+    <span class="tag">Deine erste Mini-Produktion</span>
+    <h1>Die Zugfahrt-Doku</h1>
     <p>
-      Jetzt wird's praktisch: 4 kurze Challenges, direkt am Fenster. Starte den
-      Timer, film mit deiner eigenen Handykamera (nicht hier auf der Website!),
-      und beurteile danach selbst, wie es gelaufen ist. Kein Upload nötig – das
-      ist deine eigene Übung.
+      Zeit, alles aus Modul 1 und 2 zusammenzubringen: Du drehst eine <strong>60–90
+      Sekunden Mini-Doku</strong> über eure Zugfahrt ins Lager – Landschaft,
+      Leute, Stimmung. Wie ein echtes Produktionsteam planst du zuerst deine
+      Einstellungen in einem <strong>Drehplan</strong>, dann gehst du filmen (mit
+      deiner eigenen Handykamera – nicht auf dieser Seite), und am Schluss
+      reflektierst du kurz, wie es gelaufen ist.
     </p>
   </section>
 
-  <div id="challenges"></div>
+  <section class="card card--theory">
+    <span class="tag">Beispiel</span>
+    <h2>So könnte dein Drehplan aussehen</h2>
+    <p class="text-muted">Ein Ausschnitt zur Inspiration – nicht abschreiben,
+      sondern für deine eigene Zugfahrt anpassen.</p>
+    <div style="overflow-x:auto;">
+      <table class="spickzettel-table">
+        <thead><tr><th>Einstellungsgrösse</th><th>Perspektive</th><th>Was im Bild ist</th></tr></thead>
+        <tbody>
+          <tr><td>Totale</td><td>Augenhöhe</td><td>Landschaft durchs Zugfenster, im Vorbeifahren</td></tr>
+          <tr><td>Nah</td><td>Augenhöhe</td><td>Zwei Teammitglieder im Gespräch/Kartenspiel</td></tr>
+          <tr><td>Detail</td><td>Froschperspektive</td><td>Zugticket auf dem Klapptisch, von schräg unten</td></tr>
+          <tr><td>Halbtotale</td><td>Vogelperspektive</td><td>Gang durchs Abteil, Handy über Kopfhöhe gehalten</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card card--exercise">
+    <span class="tag">Drehplan</span>
+    <h2>Plane deine Shots</h2>
+    <p class="text-muted">Füge mindestens 5 Shots hinzu. Nutze bewusst
+      verschiedene Einstellungsgrössen und Perspektiven – nicht einfach 5× das
+      Gleiche.</p>
+
+    <div id="shotlist"></div>
+    <div class="btn-row" style="margin-top:0;">
+      <button type="button" id="add-shot-btn" class="btn btn--secondary">+ Shot hinzufügen</button>
+    </div>
+    <div id="shot-stats" class="shot-stats"></div>
+  </section>
+
+  <section class="box box--tip">
+    <h3>Jetzt filmen</h3>
+    <p class="mb-0">Nimm dein Handy, geh deinen Drehplan durch und film jeden
+      geplanten Shot einmal. Denk an die Technikabnahme aus Modul 1 (Querformat,
+      ruhig halten, Fokus sperren). Plane dafür ca. 15–20 Minuten ein.</p>
+  </section>
 
   <section class="card card--exercise">
     <span class="tag">Reflexion</span>
-    <h2>Welche Übung war am schwierigsten – und warum?</h2>
-    <p class="text-muted">Nur für dich – keine Auswertung, keine Bewertung.</p>
+    <h2>Wie ist es gelaufen?</h2>
+    <p class="text-muted">Geh kurz deinen Drehplan durch: Was hat geklappt, was
+      würdest du beim nächsten Mal anders machen? Nur für dich – keine
+      Auswertung.</p>
     <textarea id="reflection" placeholder="Deine Gedanken..."></textarea>
     <div class="btn-row">
       <button type="button" id="m3-complete-btn" class="btn" disabled>Modul 3 abschliessen</button>
@@ -62,123 +103,42 @@
 
 <script type="module">
   import { renderProgressBar, renderModuleNav, setupResetButton, enforceUnlock, markModuleDone } from "../assets/js/progress.js";
-  import { createTimer } from "../assets/js/timer.js";
+  import { initShotlistBuilder } from "../assets/js/shotlist.js";
 
   if (enforceUnlock("module", 3)) {
     renderProgressBar(document.getElementById("progress-bar-container"), "Modul 3 von 4");
     renderModuleNav(document.getElementById("module-nav"), 3);
     setupResetButton(document.getElementById("reset-btn"));
 
-    const CHALLENGES = [
-      {
-        id: "stabil",
-        title: "1. Stabil",
-        ziel: "Eine 10-Sekunden-Einstellung aus dem fahrenden Fenster, ohne Wackeln.",
-        schritte: [
-          "Motiv draussen suchen (Baum, Gebäude, Landschaft).",
-          "Landscape-Modus, Ellbogen am Körper oder Fensterrahmen abstützen.",
-          "10 Sekunden ruhig filmen, ohne zu schwenken.",
-        ],
-        selbstcheck: ["Ellbogen abgestützt?", "Bild beim Anschauen ruhig (kein Wackeln)?"],
-      },
-      {
-        id: "drittelregel",
-        title: "2. Drittelregel",
-        ziel: "Ein Porträt des Sitznachbarn, Augen auf der oberen Drittellinie.",
-        schritte: [
-          "Gitter/Raster in der Kamera-App aktivieren.",
-          "Sitznachbar:in bitten, kurz ins Bild zu schauen.",
-          "Augen auf die obere Rasterlinie legen, auslösen.",
-        ],
-        selbstcheck: ["Gitter genutzt?", "Augen wirklich auf der Linie?"],
-      },
-      {
-        id: "perspektiven-trio",
-        title: "3. Perspektiven-Trio",
-        ziel: "Dasselbe Motiv aus Vogel-, Augenhöhe- und Froschperspektive.",
-        schritte: [
-          "Ein Motiv wählen (Person oder Objekt).",
-          "Von oben filmen (Vogelperspektive).",
-          "Auf Augenhöhe und von unten (Froschperspektive) wiederholen.",
-        ],
-        selbstcheck: ["Alle 3 Perspektiven klar unterscheidbar?", "Wirkung spürbar unterschiedlich?"],
-      },
-      {
-        id: "treppe",
-        title: "4. Einstellungsgrössen-Treppe",
-        ziel: "Totale → Nah → Detail vom selben Motiv, ohne Sprung dazwischen.",
-        schritte: [
-          "Ein Motiv wählen.",
-          "Totale filmen, dann näher gehen für Nah.",
-          "Zum Schluss Detail filmen – jede Stufe einzeln, kein Sprung auslassen.",
-        ],
-        selbstcheck: ["Jede Stufe klar erkennbar?", "Kein „Jump Cut”-Gefühl beim Vorstellen der Abfolge?"],
-      },
-    ];
-
-    const completedChallenges = new Set();
-    const container = document.getElementById("challenges");
     const completeBtn = document.getElementById("m3-complete-btn");
     const hint = document.getElementById("m3-hint");
     const reflection = document.getElementById("reflection");
+    let shotlistOk = false;
 
-    function checkOverallCompletion() {
-      const allChallengesDone = completedChallenges.size === CHALLENGES.length;
-      const reflectionFilled = reflection.value.trim().length >= 5;
-      completeBtn.disabled = !(allChallengesDone && reflectionFilled);
-      if (!allChallengesDone) {
-        hint.textContent = `Noch ${CHALLENGES.length - completedChallenges.size} Challenge(s) offen (Timer einmal durchlaufen lassen).`;
+    function checkCompletion() {
+      const reflectionFilled = reflection.value.trim().length >= 10;
+      completeBtn.disabled = !(shotlistOk && reflectionFilled);
+      if (!shotlistOk) {
+        hint.textContent = "Vervollständige zuerst deinen Drehplan (siehe Kriterien oben).";
       } else if (!reflectionFilled) {
-        hint.textContent = "Fast geschafft – schreib noch ein, zwei Sätze zur Reflexion.";
+        hint.textContent = "Schreib noch ein paar Sätze zur Reflexion.";
       } else {
-        hint.textContent = "Alles erledigt – weiter zu den Filmformaten!";
+        hint.textContent = "Bereit – weiter zu den Filmformaten!";
       }
     }
 
-    CHALLENGES.forEach((c) => {
-      const card = document.createElement("section");
-      card.className = "card challenge-card";
-      card.innerHTML = `
-        <span class="tag">Challenge</span>
-        <h2>${c.title}</h2>
-        <p><strong>Ziel:</strong> ${c.ziel}</p>
-        <ol class="challenge-card__steps">
-          ${c.schritte.map((s) => `<li>${s}</li>`).join("")}
-        </ol>
-        <div class="timer-slot" id="timer-${c.id}"></div>
-        <h3 style="font-size:0.95rem; margin-top:1rem;">Selbstcheck</h3>
-        <ul class="checklist" id="check-${c.id}">
-          ${c.selbstcheck.map((s, i) => `
-            <li>
-              <input type="checkbox" id="sc-${c.id}-${i}">
-              <label for="sc-${c.id}-${i}" style="margin:0; font-weight:400; cursor:pointer;">${s}</label>
-            </li>
-          `).join("")}
-        </ul>
-        <div class="exercise-feedback" id="done-${c.id}"></div>
-      `;
-      container.appendChild(card);
-
-      card.querySelectorAll(`#check-${c.id} li`).forEach((li) => {
-        const cb = li.querySelector("input");
-        li.addEventListener("click", (e) => {
-          if (e.target !== cb) cb.checked = !cb.checked;
-          li.classList.toggle("is-checked", cb.checked);
-        });
-        cb.addEventListener("click", () => li.classList.toggle("is-checked", cb.checked));
-      });
-
-      createTimer(document.getElementById(`timer-${c.id}`), 300, () => {
-        completedChallenges.add(c.id);
-        const doneEl = document.getElementById(`done-${c.id}`);
-        doneEl.className = "exercise-feedback is-visible is-correct";
-        doneEl.innerHTML = "⏱ Zeit abgelaufen – Challenge gefilmt? Dann hak deinen Selbstcheck ab.";
-        checkOverallCompletion();
-      });
+    initShotlistBuilder({
+      container: document.getElementById("shotlist"),
+      statsEl: document.getElementById("shot-stats"),
+      addBtn: document.getElementById("add-shot-btn"),
+      onChange: (shots, meetsRequirement) => {
+        shotlistOk = meetsRequirement;
+        checkCompletion();
+      },
     });
 
-    reflection.addEventListener("input", checkOverallCompletion);
-    checkOverallCompletion();
+    reflection.addEventListener("input", checkCompletion);
+    checkCompletion();
 
     completeBtn.addEventListener("click", () => {
       markModuleDone(3);

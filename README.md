@@ -11,16 +11,27 @@ in Modul 4 – der Rest der Seite funktioniert auch ohne Internetverbindung).
 
 ## Inhalt
 
-- **Modul 1 – Technikabnahme**: interaktive Checkliste zu den wichtigsten
-  Handy-Filmeinstellungen.
+- **Modul 1 – Technikabnahme**: 7 Technik-Karten mit je einer konkreten
+  **iPhone-** und **Android-Anleitung** (recherchiert anhand offizieller Apple-
+  und Google-Support-Dokumentation) sowie einer kurzen Verständnisfrage mit
+  Feedback – erst nach Beantworten gilt eine Karte als erledigt. Dazu ein echtes
+  Foto-Beispiel zur Drittelregel.
 - **Modul 2 – Bildsprache drauf haben**: 6 Einstellungsgrössen + 3 Perspektiven als
-  selbst gezeichnete SVG-Illustrationen, dazu ein kurzer Quick-Check.
-- **Modul 3 – Die Zug-Challenge**: 4 praktische 5-Minuten-Übungen mit Countdown-
-  Timer und Selbstcheck-Checkliste (gefilmt wird mit der eigenen Handykamera,
-  nicht auf der Website).
+  selbst gezeichnete SVG-Illustrationen, ergänzt um zwei echte Fotobeispiele
+  (Vogel-/Froschperspektive), plus vertiefte Kompositionsregeln (Führungslinien,
+  Blickrichtungsraum, Symmetrie) und Kamerabewegung (Schwenk, Fahrt, Zoom vs.
+  Fahrt, Handheld vs. stabilisiert), abgeschlossen mit einem 7-Fragen-Quick-Check.
+- **Modul 3 – Die Zug-Challenge**: keine künstlichen Countdown-Timer mehr. Statt
+  vier isolierter Drills planen Lernende in einem echten **Drehplan-Tool**
+  (Shot-List-Builder) eine zusammenhängende Mini-Produktion („Die
+  Zugfahrt-Doku"), filmen sie dann mit der eigenen Handykamera und reflektieren
+  anschliessend.
 - **Modul 4 – Filmformate kombinieren**: Zuordnungsspiel zu 5 Filmformaten
-  (Imagefilm, Werbespot, Mini-Doku, Action-Sport, Testimonial) inkl. offizieller
-  YouTube-Beispielvideos.
+  (Imagefilm, Werbespot, Mini-Doku, Action-Sport, Testimonial) inkl. **fünf
+  preisgekrönter/redaktioneller Beispielvideos** (u. a. ein Oscar- und ein
+  Cannes-Lions-Grand-Prix-Gewinner) als Klick-zum-Laden-Vorschaubilder
+  (Facade-Pattern, robust gegen Adblocker) mit direktem YouTube-Link als
+  Fallback.
 - **Spickzettel fürs Lager**: druckbare Ein-Seiten-Zusammenfassung aller Module,
   inkl. persönlichem Wunschformat.
 
@@ -33,15 +44,22 @@ Reines HTML5 / CSS3 / Vanilla JavaScript (ES6-Module), kein Framework, kein
 Build-Step. Die Filmformat-Daten liegen in `data/formate.json` und werden per
 `fetch()` geladen; die SVG-Illustrationen liegen als eigenständige Dateien in
 `assets/svg/` und werden zur Laufzeit geladen und ins Dokument eingefügt (damit sie
-das Farbschema per CSS-Variablen übernehmen, auch im Dark Mode).
+das Farbschema per CSS-Variablen übernehmen, auch im Dark Mode). Die Video-Beispiele
+in Modul 4 laden nie automatisch ein Iframe – ein Klick auf das Vorschaubild
+injiziert erst dann den echten YouTube-Embed.
 
 ## Medien-Sourcing
 
 - Die SVG-Illustrationen (Einstellungsgrössen, Perspektiven) sind vollständig
   selbst erstellt.
+- Die 3 Fotos in `assets/img/` stammen aus lizenzgeprüften Quellen (Wikimedia
+  Commons / Openverse) und sind entsprechend im Bild bzw. in der Bildunterschrift
+  attribuiert (CC0 bzw. CC BY/CC BY-SA mit Namensnennung).
 - Die 5 Video-Beispiele in Modul 4 sind offizielle YouTube-Embeds (kein
-  Selbst-Hosting) von den jeweiligen Marken-/Herstellerkanälen: Victorinox AG,
-  Migros, YETI, GoPro, Patagonia.
+  Selbst-Hosting), alle vor der Verwendung auf `playableInEmbed` geprüft:
+  Victorinox AG, Marcel (Cannes-Lions-Gewinner für Orange), New York Times
+  Opinion/Op-Docs (Oscar-Gewinner "The Queen of Basketball"), Teton Gravity
+  Research, Patagonia.
 
 ## Lokal starten
 

@@ -1,10 +1,7 @@
-// Wiederverwendbare, interaktive Checkliste – Filmwerkstatt Sonderwoche
-// Jeder Punkt kann angeklickt/angetippt werden, zeigt dabei eine kurze
-// Begründung ("Warum ist das wichtig?") und lässt sich an-/abhaken.
+// Interaktive Technik-Karten & Checklisten – Filmwerkstatt Sonderwoche
 
-// Rendert eine Checkliste in `container` (ul-Element).
+// Einfache Checkliste mit Begründung beim Antippen (z. B. für Selbstchecks).
 // items: [{ id, text, why }]
-// onChange(allChecked, checkedCount, total) wird bei jeder Änderung aufgerufen.
 export function renderChecklist(container, items, onChange) {
   if (!container) return { isAllChecked: () => false };
 
@@ -20,7 +17,7 @@ export function renderChecklist(container, items, onChange) {
       <input type="checkbox" id="chk-${item.id}" aria-describedby="why-${item.id}">
       <span class="checklist-item__text">
         <label for="chk-${item.id}" style="margin:0; font-weight:600; cursor:pointer;">${item.text}</label>
-        <div class="checklist-explain" id="why-${item.id}">💡 ${item.why}</div>
+        ${item.why ? `<div class="checklist-explain" id="why-${item.id}">💡 ${item.why}</div>` : ""}
       </span>
     `;
     container.appendChild(li);
@@ -30,20 +27,19 @@ export function renderChecklist(container, items, onChange) {
 
     function toggle() {
       checkbox.checked = !checkbox.checked;
+      apply();
+    }
+    function apply() {
       state[item.id] = checkbox.checked;
       li.classList.toggle("is-checked", checkbox.checked);
-      explain.classList.add("is-visible");
+      if (explain) explain.classList.add("is-visible");
       fireChange();
     }
 
     checkbox.addEventListener("click", (e) => {
       e.stopPropagation();
-      state[item.id] = checkbox.checked;
-      li.classList.toggle("is-checked", checkbox.checked);
-      explain.classList.add("is-visible");
-      fireChange();
+      apply();
     });
-
     li.addEventListener("click", (e) => {
       if (e.target === checkbox) return;
       toggle();
@@ -60,4 +56,78 @@ export function renderChecklist(container, items, onChange) {
     isAllChecked: () => Object.values(state).filter(Boolean).length === items.length,
     getCheckedCount: () => Object.values(state).filter(Boolean).length,
   };
+}
+
+// Technik-Karten mit iPhone-/Android-Tabs und einer kurzen Verständnisfrage je
+// Technik. Eine Karte gilt erst als "erledigt", wenn die Frage beantwortet wurde
+// (nicht schon beim blossen Anklicken) – so bewirkt das Abhaken tatsächlich etwas.
+// items: [{ id, title, why, iphone?, android?, universal?, check: { frage, optionen, loesung, erklaerung } }]
+export function renderTechniqueCards(container, items, onProgress) {
+  if (!container) return;
+  container.innerHTML = "";
+  const answered = new Set();
+
+  items.forEach((item, idx) => {
+    const card = document.createElement("div");
+    card.className = "tech-card";
+
+    const platformHtml = item.universal
+      ? `<div class="tech-card__universal">${item.universal}</div>`
+      : `
+        <div class="tech-card__tabs" role="tablist">
+          <button type="button" class="tech-card__tab is-active" data-platform="iphone">📱 iPhone</button>
+          <button type="button" class="tech-card__tab" data-platform="android">🤖 Android</button>
+        </div>
+        <div class="tech-card__platform" data-platform-content="iphone">${item.iphone}</div>
+        <div class="tech-card__platform" data-platform-content="android" hidden>${item.android}</div>
+      `;
+
+    card.innerHTML = `
+      <div class="tech-card__header">
+        <span class="tech-card__num">${idx + 1}</span>
+        <h3 class="mb-0">${item.title}</h3>
+        <span class="tech-card__status" data-role="status">○</span>
+      </div>
+      <p class="text-muted">${item.why}</p>
+      ${platformHtml}
+      <div class="tech-card__check">
+        <p class="mb-0" style="font-weight:600;">${item.check.frage}</p>
+        <div class="tree-options" style="margin-top:0.6rem;">
+          ${item.check.optionen.map((o, i) => `<button type="button" class="tree-option-btn" data-idx="${i}">${o}</button>`).join("")}
+        </div>
+        <div class="exercise-feedback" data-role="feedback"></div>
+      </div>
+    `;
+    container.appendChild(card);
+
+    if (!item.universal) {
+      const tabs = card.querySelectorAll(".tech-card__tab");
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((t) => t.classList.remove("is-active"));
+          tab.classList.add("is-active");
+          card.querySelectorAll("[data-platform-content]").forEach((el) => {
+            el.hidden = el.dataset.platformContent !== tab.dataset.platform;
+          });
+        });
+      });
+    }
+
+    const buttons = card.querySelectorAll(".tech-card__check [data-idx]");
+    const feedback = card.querySelector('[data-role="feedback"]');
+    const status = card.querySelector('[data-role="status"]');
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (btn.disabled) return;
+        buttons.forEach((b) => (b.disabled = true));
+        const correct = Number(btn.dataset.idx) === item.check.loesung;
+        feedback.className = "exercise-feedback is-visible " + (correct ? "is-correct" : "is-incorrect");
+        feedback.innerHTML = `<strong>${correct ? "Genau!" : "Nicht ganz."}</strong> ${item.check.erklaerung}`;
+        card.classList.add("is-done");
+        status.textContent = "✅";
+        answered.add(item.id);
+        if (typeof onProgress === "function") onProgress(answered.size, items.length);
+      });
+    });
+  });
 }

@@ -79,7 +79,8 @@
   <div class="site-footer__inner">
     <h4>Weiterführende Links</h4>
     <ul>
-      <li><a href="https://filmpuls.info/filmbezeichungen-filmkategorie-auftragsproduktion/" target="_blank" rel="noopener">Filmpuls – Filmkategorien für Auftragsproduktionen</a></li>
+      <li><a href="https://www.studiobinder.com/blog/ultimate-guide-to-camera-shots/" target="_blank" rel="noopener">StudioBinder – Guide zu Kameraeinstellungen &amp; Formaten</a></li>
+      <li><a href="https://www.canneslions.com/awards" target="_blank" rel="noopener">Cannes Lions – Die international bekanntesten Werbe-Awards</a></li>
     </ul>
     <div class="disclaimer">Diese Filmwerkstatt vermittelt eine praxisnahe Einführung in Filmformate für Ausbildungszwecke.</div>
     <button class="reset-btn" id="reset-btn" type="button">Gesamten Fortschritt zurücksetzen</button>
@@ -130,22 +131,22 @@
 
       const videoContainer = document.getElementById("video-examples");
       formate.forEach((f) => {
-        const wrap = document.createElement("div");
-        wrap.className = "video-wrap";
-        wrap.innerHTML = `
-          <iframe src="https://www.youtube-nocookie.com/embed/${f.video.id}" title="${f.video.titel}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="video-offline-note">📡 Dieses Video braucht Internetverbindung. Der Rest der Seite funktioniert auch offline weiter.</div>
-        `;
-        const setOnlineState = () => wrap.classList.toggle("is-offline", !navigator.onLine);
-        setOnlineState();
-        window.addEventListener("online", setOnlineState);
-        window.addEventListener("offline", setOnlineState);
-
         const heading = document.createElement("h3");
         heading.textContent = f.name;
+
+        const wrap = document.createElement("div");
+        wrap.className = "video-facade";
+        wrap.innerHTML = `
+          <img class="video-facade__thumb" src="https://i.ytimg.com/vi/${f.video.id}/hqdefault.jpg" alt="Vorschaubild: ${f.video.titel}" loading="lazy">
+          <button type="button" class="video-facade__play" aria-label="Video laden und abspielen: ${f.video.titel}"></button>
+        `;
+        wrap.querySelector(".video-facade__play").addEventListener("click", () => {
+          wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${f.video.id}?autoplay=1" title="${f.video.titel}" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        });
+
         const caption = document.createElement("p");
         caption.className = "video-caption";
-        caption.textContent = `Beispiel: „${f.video.titel}” – Kanal: ${f.video.kanal} (YouTube)`;
+        caption.innerHTML = `Beispiel: „${f.video.titel}” – Kanal: ${f.video.kanal}${f.video.hinweis ? " · " + f.video.hinweis : ""} · <a href="https://www.youtube.com/watch?v=${f.video.id}" target="_blank" rel="noopener">Direkt auf YouTube ansehen ↗</a>`;
 
         videoContainer.appendChild(heading);
         videoContainer.appendChild(wrap);

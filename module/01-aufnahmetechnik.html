@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Modul 1: Technikabnahme – Filmwerkstatt Sonderwoche</title>
-<meta name="description" content="Modul 1: Die wichtigsten Handyeinstellungen fürs Filmen – interaktive Checkliste.">
+<meta name="description" content="Modul 1: Die wichtigsten Handy-Kameraeinstellungen fürs Filmen – mit konkreten iPhone- und Android-Anleitungen.">
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -32,21 +32,34 @@
     <p>
       Bevor du auch nur eine Sekunde filmst: Es gibt ein paar Handy-Einstellungen
       und Handgriffe, die den Unterschied zwischen "sieht amateurhaft aus" und
-      "wirkt wie professionell gedreht" ausmachen. Geh die Checkliste durch, tipp
-      jeden Punkt an – du siehst dann auch gleich, warum er wichtig ist.
+      "wirkt wie professionell gedreht" ausmachen. Die Bedienung unterscheidet sich
+      bei iPhone und Android an ein paar Stellen – darum bekommst du zu jeder
+      Technik beide Anleitungen. Wähl unten deine Plattform und beantworte die
+      kurze Frage dazu, damit die Karte als erledigt zählt.
+    </p>
+  </section>
+
+  <div id="tech-cards"></div>
+
+  <section class="card card--theory">
+    <span class="tag">Echtes Beispiel</span>
+    <h2>Warum die Drittelregel wirklich etwas bringt</h2>
+    <figure class="mb-0">
+      <img src="../assets/img/komposition-drittelregel.jpg" alt="Landschaftsfoto mit einem einzelnen Baum, der links auf der Drittellinie steht, und einem Weg, der ins Bild hineinführt." loading="lazy" style="border-radius: var(--radius-md);">
+      <figcaption class="text-muted" style="font-size:0.78rem; margin-top:0.4rem;">Foto: Kreuzschnabel / Wikimedia Commons, CC BY-SA 3.0</figcaption>
+    </figure>
+    <p style="margin-top:0.8rem;">
+      Der Baum steht nicht in der Mitte, sondern auf der linken Drittellinie. Der
+      Weg führt von unten ins Bild und lenkt den Blick zum Horizont, der ungefähr
+      auf der oberen Drittellinie liegt. Genau dieses Prinzip meint das Raster in
+      deiner Kamera-App.
     </p>
   </section>
 
   <section class="card card--exercise">
-    <span class="tag">Checkliste</span>
-    <h2>Technikabnahme-Checkliste</h2>
-    <p class="text-muted">Hak jeden Punkt ab, sobald du ihn an deinem Handy
-      eingestellt bzw. verstanden hast. Antippen zeigt dir die Begründung.</p>
-
-    <ul class="checklist" id="m1-checklist"></ul>
-
+    <span class="tag">Fortschritt</span>
+    <h2>Technikabnahme</h2>
     <div id="m1-summary" class="exercise-summary"></div>
-
     <div class="btn-row">
       <button type="button" id="m1-complete-btn" class="btn" disabled>Technikabnahme bestanden ✓</button>
     </div>
@@ -63,44 +76,160 @@
 
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <div class="disclaimer">
-      Diese Filmwerkstatt vermittelt eine praxisnahe Einführung in Handy-Filmtechnik
-      für Ausbildungszwecke.
-    </div>
+    <h4>Weiterführende Links</h4>
+    <ul>
+      <li><a href="https://support.apple.com/de-de/guide/iphone/iph0c397b154/ios" target="_blank" rel="noopener">Apple Support – Kamerasteuerung auf dem iPhone</a></li>
+      <li><a href="https://support.google.com/pixelcamera/answer/2838995" target="_blank" rel="noopener">Google Pixel-Kamera-Hilfe – Einstellungen ändern</a></li>
+    </ul>
+    <div class="disclaimer">Diese Filmwerkstatt vermittelt eine praxisnahe Einführung in Handy-Filmtechnik für Ausbildungszwecke.</div>
     <button class="reset-btn" id="reset-btn" type="button">Gesamten Fortschritt zurücksetzen</button>
   </div>
 </footer>
 
 <script type="module">
   import { renderProgressBar, renderModuleNav, setupResetButton, enforceUnlock, markModuleDone } from "../assets/js/progress.js";
-  import { renderChecklist } from "../assets/js/checklist.js";
+  import { renderTechniqueCards } from "../assets/js/checklist.js";
 
   if (enforceUnlock("module", 1)) {
     renderProgressBar(document.getElementById("progress-bar-container"), "Modul 1 von 4");
     renderModuleNav(document.getElementById("module-nav"), 1);
     setupResetButton(document.getElementById("reset-btn"));
 
-    const ITEMS = [
-      { id: "landscape", text: "Immer quer filmen (Landscape)", why: "Hochkant-Videos wirken auf grossen Bildschirmen (Beamer, TV, Leinwand am Lagerende) unprofessionell und erzwingen schwarze Balken." },
-      { id: "raster", text: "Gitter/Raster aktivieren, Drittelregel anwenden", why: "Wichtige Bildelemente (Augen, Horizont) auf die Rasterlinien bzw. -schnittpunkte legen statt zentriert – wirkt dynamischer und professioneller." },
-      { id: "aelock", text: "Fokus & Belichtung antippen und sperren (AE/AF-Lock)", why: "Verhindert, dass das Bild ständig „pumpt” (nachfokussiert/nachbelichtet), wenn sich im Bild etwas bewegt oder die Kamera leicht wackelt." },
-      { id: "zoom", text: "Nicht digital zoomen – lieber näher hingehen", why: "Digitaler Zoom verschlechtert die Bildqualität sichtbar (Pixelmatsch); ein optischer „Zoom mit den Füssen” bringt bessere Ergebnisse." },
-      { id: "ruhig", text: "Ruhig halten: beide Hände, Ellbogen anlegen, abstützen", why: "Fensterrahmen, Sitzlehne oder der eigene Körper wirken als Stativ-Ersatz und reduzieren Verwacklungen." },
-      { id: "linse", text: "Linse putzen, genug Licht suchen", why: "Fingerabdrücke auf der Linse sind der häufigste Grund für unscharfe Handyvideos; Gegenlicht (z. B. direkt gegen die tiefstehende Sonne im Zugfenster) vermeiden." },
-      { id: "mikro", text: "Mikrofon und ggf. Gimbal testen", why: "Schlechter Ton ruiniert ein gutes Bild schneller als umgekehrt – vorher testen, bevor es ernst wird." },
+    const TECHNIQUES = [
+      {
+        id: "landscape",
+        title: "Immer quer filmen (Landscape)",
+        why: "Hochkant-Videos wirken auf grossen Bildschirmen (Beamer, TV, Leinwand am Lagerende) unprofessionell und erzwingen schwarze Balken.",
+        iphone: "Dreh dein iPhone quer. Dreht sich das Bild nicht mit: Kontrollzentrum öffnen und prüfen, ob die <strong>Ausrichtungssperre</strong> (Schloss-Symbol mit Pfeil) aktiv ist – dann ausschalten.",
+        android: "Dreh dein Handy quer. Dreht sich das Bild nicht mit: Schnelleinstellungen öffnen und die <strong>Bildschirmdrehung/Auto-Rotation</strong> aktivieren.",
+        check: {
+          frage: "Warum filmt man fürs Lager-Video immer quer statt hochkant?",
+          optionen: [
+            "Weil Hochkant-Videos technisch gar nicht möglich sind",
+            "Weil Hochkant-Videos auf grossen Bildschirmen schwarze Balken erzwingen und unprofessionell wirken",
+            "Weil die Kamera hochkant schlechter fokussiert",
+            "Weil Querformat-Videos weniger Speicherplatz brauchen",
+          ],
+          loesung: 1,
+          erklaerung: "Auf Beamer, TV oder Kinoleinwand ist das Bildformat immer breiter als hoch (16:9). Ein Hochkant-Video füllt das nicht aus und wirkt schnell wie ein Versehen.",
+        },
+      },
+      {
+        id: "raster",
+        title: "Raster/Gitternetz aktivieren",
+        why: "Wichtige Bildelemente (Augen, Horizont) auf die Rasterlinien bzw. -schnittpunkte legen statt zentriert – wirkt dynamischer und professioneller (Drittelregel).",
+        iphone: "<strong>Einstellungen → Kamera → Raster</strong> aktivieren (Schalter umlegen). Das Gitter erscheint danach direkt im Kamera-Sucher.",
+        android: "Kamera-App öffnen → unten links auf <strong>Einstellungen</strong> (Zahnrad) tippen → <strong>Rastertyp</strong> wählen. Bei Samsung-Geräten: Kamera-App → Zahnrad-Symbol → Rasterlinien.",
+        check: {
+          frage: "Was bewirkt das aktivierte Raster beim Filmen?",
+          optionen: [
+            "Es macht das Video automatisch schärfer",
+            "Es hilft, wichtige Bildelemente auf die Rasterlinien statt in die Mitte zu setzen (Drittelregel)",
+            "Es aktiviert den optischen Zoom",
+            "Es verbessert die Tonqualität",
+          ],
+          loesung: 1,
+          erklaerung: "Das Raster ist eine reine Orientierungshilfe für die Bildkomposition – es verändert nichts an der eigentlichen Aufnahme.",
+        },
+      },
+      {
+        id: "aelock",
+        title: "Fokus & Belichtung sperren (AE/AF-Lock)",
+        why: "Verhindert, dass das Bild ständig „pumpt” (nachfokussiert/nachbelichtet), wenn sich im Bild etwas bewegt oder die Kamera leicht wackelt.",
+        iphone: "Aufs Motiv tippen und <strong>gedrückt halten</strong>, bis oben „AE/AF-Sperre” erscheint (gelbes Feld). Mit dem Finger am Bildrand nach oben/unten wischen (Sonnensymbol), um die Helligkeit noch anzupassen.",
+        android: "Aufs Motiv <strong>tippen</strong> – es erscheint ein Kreis/Rahmen mit der Option <strong>„Sperren”</strong>. Darauf tippen, um Fokus und Belichtung zu fixieren (Pixel-Kamera; bei anderen Android-Herstellern kann die Bezeichnung leicht abweichen).",
+        check: {
+          frage: "Wann lohnt sich AE/AF-Lock besonders?",
+          optionen: [
+            "Nie – die Automatik ist immer besser",
+            "Wenn sich das Motiv bewegt oder die Kamera leicht wackelt und das Bild sonst ständig nachfokussiert/nachbelichtet",
+            "Nur bei absoluter Dunkelheit",
+            "Nur beim Fotografieren, nie beim Filmen",
+          ],
+          loesung: 1,
+          erklaerung: "Ohne Sperre passt die Automatik Fokus und Belichtung laufend neu an, sobald sich etwas im Bild verändert – das sieht man im fertigen Video als störendes „Pumpen”.",
+        },
+      },
+      {
+        id: "zoom",
+        title: "Nicht digital zoomen – lieber näher hingehen",
+        why: "Digitaler Zoom verschlechtert die Bildqualität sichtbar (Pixelmatsch); ein optischer „Zoom mit den Füssen” bringt bessere Ergebnisse.",
+        universal: "Gilt für iPhone und Android gleichermassen: Das Ziehen/Pinchen über den optischen Bereich hinaus ist <strong>digitaler</strong> Zoom und schneidet nur ins Bild – die Qualität leidet sichtbar. Besitzt dein Handy mehrere Objektive (z. B. 0.5×/1×/3×), nutze die Objektiv-Wahltaste für <strong>optischen</strong> Zoom, ansonsten: körperlich näher hingehen.",
+        check: {
+          frage: "Was passiert beim digitalen Zoom über den optischen Bereich hinaus?",
+          optionen: [
+            "Nichts, die Qualität bleibt exakt gleich",
+            "Das Bild wird lediglich vergrössert und ausschnitthaft verrechnet – die Qualität verschlechtert sich sichtbar",
+            "Die Auflösung wird automatisch erhöht",
+            "Der Akku hält länger",
+          ],
+          loesung: 1,
+          erklaerung: "Digitaler Zoom vergrössert nur einen Bildausschnitt rechnerisch – anders als beim optischen Zoom (eigenes Objektiv) gehen dabei echte Bilddetails verloren.",
+        },
+      },
+      {
+        id: "ruhig",
+        title: "Ruhig halten",
+        why: "Fensterrahmen, Sitzlehne oder der eigene Körper wirken als Stativ-Ersatz und reduzieren Verwacklungen deutlich.",
+        universal: "Gilt für iPhone und Android gleichermassen: Beide Hände ans Handy, Ellbogen am Körper anlegen. Im Zug zusätzlich am Fensterrahmen oder der Sitzlehne abstützen – das ersetzt ein Stativ.",
+        check: {
+          frage: "Wie hältst du dein Handy im Zug am ruhigsten?",
+          optionen: [
+            "Mit einer Hand, Arm frei ausgestreckt",
+            "Mit beiden Händen, Ellbogen angelegt, zusätzlich am Fensterrahmen oder der Sitzlehne abgestützt",
+            "Das Wackeln lässt sich beim Filmen ohnehin nicht vermeiden",
+            "Nur im Stehen, nie im Sitzen",
+          ],
+          loesung: 1,
+          erklaerung: "Je mehr Kontaktpunkte zum eigenen Körper oder zur Umgebung, desto ruhiger das Bild – genau wie bei einem Fotostativ.",
+        },
+      },
+      {
+        id: "linse",
+        title: "Linse putzen, genug Licht suchen",
+        why: "Fingerabdrücke auf der Linse sind der häufigste Grund für unscharfe Handyvideos; Gegenlicht (z. B. direkt gegen die tiefstehende Sonne im Zugfenster) vermeiden.",
+        universal: "Gilt für iPhone und Android gleichermassen: Vor dem Filmen kurz mit einem weichen Tuch (T-Shirt reicht) über die Linse wischen. Beim Filmen darauf achten, dass die Lichtquelle (Sonne, Lampe) nicht direkt hinter dem Motiv in die Linse strahlt.",
+        check: {
+          frage: "Was ist der häufigste Grund für unscharfe Handyvideos?",
+          optionen: [
+            "Ein zu neues Handy-Modell",
+            "Fingerabdrücke auf der Linse",
+            "Zu viel verfügbarer Speicherplatz",
+            "Eine zu hohe Videoauflösung",
+          ],
+          loesung: 1,
+          erklaerung: "Die Handylinse ist winzig – schon ein leichter Fettfilm vom Anfassen genügt, um das ganze Bild diffus/unscharf wirken zu lassen.",
+        },
+      },
+      {
+        id: "mikro",
+        title: "Mikrofon und ggf. Gimbal testen",
+        why: "Schlechter Ton ruiniert ein gutes Bild schneller als umgekehrt – vorher testen, bevor es ernst wird.",
+        universal: "Gilt für iPhone und Android gleichermassen: Kurz eine Testaufnahme machen und mit Kopfhörern anhören, bevor es losgeht. Externe Mikrofone/Gimbals vorher auf Kompatibilität prüfen (Lightning/USB-C bzw. USB-C je nach Gerät) und Akkustand kontrollieren.",
+        check: {
+          frage: "Warum lohnt sich eine kurze Ton-Testaufnahme vorher?",
+          optionen: [
+            "Weil Ton beim Filmen unwichtig ist",
+            "Weil schlechter Ton ein gutes Bild schneller ruiniert als umgekehrt, und Probleme sich vorher noch beheben lassen",
+            "Weil das Mikrofon sich sonst automatisch abschaltet",
+            "Nur um den Akku zu testen",
+          ],
+          loesung: 1,
+          erklaerung: "Zuschauer verzeihen ein etwas wackliges Bild eher als schlechten, unverständlichen Ton – darum lohnt sich der kurze Check vorher.",
+        },
+      },
     ];
 
     const completeBtn = document.getElementById("m1-complete-btn");
     const summary = document.getElementById("m1-summary");
 
-    renderChecklist(document.getElementById("m1-checklist"), ITEMS, (allChecked, checkedCount, total) => {
-      if (allChecked) {
-        summary.className = "exercise-summary is-visible";
-        summary.innerHTML = `<strong>${checkedCount} von ${total} Punkten abgehakt.</strong> Technikabnahme bestanden – weiter geht's mit der Bildsprache!`;
+    renderTechniqueCards(document.getElementById("tech-cards"), TECHNIQUES, (answeredCount, total) => {
+      summary.className = "exercise-summary is-visible";
+      if (answeredCount === total) {
+        summary.innerHTML = `<strong>${answeredCount} von ${total} Techniken durchgearbeitet.</strong> Technikabnahme bestanden – weiter geht's mit der Bildsprache!`;
         completeBtn.disabled = false;
       } else {
-        summary.className = "exercise-summary is-visible";
-        summary.innerHTML = `${checkedCount} von ${total} Punkten abgehakt. Für die Technikabnahme müssen alle Punkte abgehakt sein.`;
+        summary.innerHTML = `${answeredCount} von ${total} Techniken durchgearbeitet. Beantworte bei jeder Karte die kurze Frage, um fortzufahren.`;
         completeBtn.disabled = true;
       }
     });
