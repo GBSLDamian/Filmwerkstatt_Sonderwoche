@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Filmwerkstatt Sonderwoche – Technikabnahme fürs Lager</title>
+<meta name="description" content="Interaktive Filmwerkstatt für KV-Lernende: Handy-Filmtechnik, Bildsprache, Zug-Challenges und Filmformate – Vorbereitung fürs Lager.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true">🎬</span>
+      Filmwerkstatt Sonderwoche
+    </a>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="progress-wrap">
+    <div id="progress-bar-container"></div>
+  </div>
+
+  <section class="card card--scenario">
+    <span class="tag">Technikabnahme</span>
+    <h1>Bevor die Crew ans Set darf...</h1>
+    <p>
+      ...gibt es die Technikabnahme. Die Zugfahrt ins Lager wird zu deinem
+      gratis Filmstudio: fahrendes Fenster, wechselndes Licht, echte Motive direkt
+      vor der Linse. In 4 kurzen Modulen holst du dir das Handwerkszeug, das du im
+      Lager für die Produktion brauchst – am Ende hast du deinen persönlichen
+      Spickzettel fürs Set in der Tasche.
+    </p>
+    <p class="text-muted">
+      Kein Test, keine Noten – nur Skills, die du direkt anwenden kannst. Also:
+      Handy raus, Fenster frei, los geht's.
+    </p>
+  </section>
+
+  <section class="box box--info">
+    <h3>So läuft die Filmwerkstatt</h3>
+    <ul>
+      <li>4 Module, die aufeinander aufbauen und der Reihe nach freigeschaltet werden.</li>
+      <li>Kurzer Praxis-Input, direkt gefolgt von einer Übung oder Challenge – kein
+        langer Fliesstext.</li>
+      <li>Die Zug-Challenges filmst du mit deiner eigenen Handykamera – die Website
+        leitet dich nur an, aufgenommen wird ausserhalb.</li>
+      <li>Dein Fortschritt wird automatisch auf diesem Gerät gespeichert.</li>
+      <li>Am Ende wartet dein persönlicher, druckbarer Spickzettel fürs Lager.</li>
+    </ul>
+  </section>
+
+  <h2>Deine Module</h2>
+  <ul class="module-list" id="module-list"></ul>
+
+  <div class="disclaimer">
+    Diese Filmwerkstatt vermittelt eine praxisnahe Einführung in Handy-Filmtechnik
+    und Bildsprache für Ausbildungszwecke. Sie ist eine Vorbereitung auf die
+    Produktionsphase im Lager, kein technisches Fachgutachten.
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <h4>Weiterführende Links</h4>
+    <ul>
+      <li><a href="https://www.lmz-bw.de/filmbildung/praktische-filmarbeit/einstellungsgroessen" target="_blank" rel="noopener">Landesmedienzentrum BW – Einstellungsgrössen</a></li>
+      <li><a href="https://lernbausteine.visionkino.de/filmbildungskurse/kameraperspektiven/index.html" target="_blank" rel="noopener">Kinofenster/Vision Kino – Kameraperspektiven</a></li>
+      <li><a href="https://filmpuls.info/filmbezeichungen-filmkategorie-auftragsproduktion/" target="_blank" rel="noopener">Filmpuls – Filmkategorien für Auftragsproduktionen</a></li>
+      <li><a href="https://gopro.com" target="_blank" rel="noopener">GoPro – Referenz für Action-Cam-Formate</a></li>
+    </ul>
+    <p>© Filmwerkstatt Sonderwoche · Lernmaterial für die Berufsfachschule.</p>
+    <button class="reset-btn" id="reset-btn" type="button">Gesamten Fortschritt zurücksetzen</button>
+  </div>
+</footer>
+
+<script type="module">
+  import { renderProgressBar, renderModuleList, setupResetButton } from "./assets/js/progress.js";
+  renderProgressBar(document.getElementById("progress-bar-container"), "Gesamtfortschritt");
+  renderModuleList(document.getElementById("module-list"));
+  setupResetButton(document.getElementById("reset-btn"));
+</script>
+</body>
+</html>

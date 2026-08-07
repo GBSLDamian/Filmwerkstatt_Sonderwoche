@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modul 2: Bildsprache drauf haben – Filmwerkstatt Sonderwoche</title>
+<meta name="description" content="Modul 2: Einstellungsgrössen und Perspektiven – die Bausteine der Bildsprache beim Filmen.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="../index.html">
+      <span class="brand__mark" aria-hidden="true">🎬</span>
+      Filmwerkstatt Sonderwoche
+    </a>
+    <a class="home-link" href="../index.html">← Übersicht</a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="module-breadcrumb">Modul 2 von 4</div>
+  <div class="progress-wrap">
+    <div id="progress-bar-container"></div>
+  </div>
+
+  <section class="card card--scenario">
+    <span class="tag">Bildsprache</span>
+    <h1>Einstellungsgrössen &amp; Perspektiven</h1>
+    <p>
+      Mit denselben zwei Werkzeugen erzählst du jede Geschichte anders: wie <strong>nah</strong>
+      die Kamera ans Motiv geht (Einstellungsgrösse) und aus welchem <strong>Winkel</strong>
+      sie draufschaut (Perspektive). Merk dir diese 9 Begriffe – im Lager wendest du
+      sie direkt an.
+    </p>
+  </section>
+
+  <section class="card card--theory">
+    <span class="tag">Einstellungsgrössen</span>
+    <h2>Von der Totalen bis ins Detail</h2>
+    <p class="text-muted">Dieselbe Person, derselbe Ort – nur die Kamera zoomt
+      immer weiter rein.</p>
+    <div class="svg-grid" id="einstellungsgroessen-grid"></div>
+    <div class="box box--rule">
+      <h3>Merksatz</h3>
+      <p>Beim Schneiden nie mehr als eine Einstellungsgrösse „überspringen” – sonst
+        wirkt der Schnitt wie ein Fehler (Jump Cut). Von Totale direkt auf Detail
+        springen vermeiden, lieber eine Zwischenstufe zeigen.</p>
+    </div>
+  </section>
+
+  <section class="card card--theory">
+    <span class="tag">Perspektiven</span>
+    <h2>Der Blickwinkel der Kamera</h2>
+    <p class="text-muted">Einstellungsgrösse und Perspektive sind unabhängig
+      voneinander – beides lässt sich beliebig kombinieren.</p>
+    <div class="svg-grid" id="perspektiven-grid"></div>
+    <div class="box box--tip">
+      <h3>Merksatz</h3>
+      <p><strong>„Von unten = Held.”</strong> Froschperspektive lässt ein Motiv
+        mächtig und dominant wirken – Vogelperspektive macht es klein und
+        überblickbar.</p>
+    </div>
+  </section>
+
+  <section class="card card--exercise">
+    <span class="tag">Quick-Check</span>
+    <h2>Kurz angewendet</h2>
+    <p class="text-muted">4 kurze Situationen – wähl den passenden Begriff. Kein
+      Test, nur zum Einprägen.</p>
+    <div id="quick-check"></div>
+    <div id="qc-summary" class="exercise-summary"></div>
+    <div class="btn-row">
+      <button type="button" id="m2-complete-btn" class="btn" disabled>Modul 2 abschliessen</button>
+    </div>
+  </section>
+
+  <nav class="module-nav" id="module-nav" aria-label="Modul-Navigation"></nav>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="disclaimer">Diese Filmwerkstatt vermittelt eine praxisnahe Einführung in Bildsprache für Ausbildungszwecke.</div>
+    <button class="reset-btn" id="reset-btn" type="button">Gesamten Fortschritt zurücksetzen</button>
+  </div>
+</footer>
+
+<script type="module">
+  import { renderProgressBar, renderModuleNav, setupResetButton, enforceUnlock, markModuleDone } from "../assets/js/progress.js";
+
+  if (enforceUnlock("module", 2)) {
+    renderProgressBar(document.getElementById("progress-bar-container"), "Modul 2 von 4");
+    renderModuleNav(document.getElementById("module-nav"), 2);
+    setupResetButton(document.getElementById("reset-btn"));
+
+    const EINSTELLUNGSGROESSEN = [
+      { id: "totale", title: "Totale", text: "Gesamte Szenerie, Person klein darin – Orientierung, guter Einstieg." },
+      { id: "halbtotale", title: "Halbtotale", text: "Person komplett von Kopf bis Fuss – Körpersprache & Bewegung gut erkennbar." },
+      { id: "halbnah", title: "Halbnah", text: "Person von Kopf bis Hüfte – Fokus auf Person, Umgebung tritt zurück." },
+      { id: "nah", title: "Nah", text: "Person von Kopf bis Brust – klassische Interview-/Dialog-Einstellung." },
+      { id: "gross", title: "Grossaufnahme", text: "Nur der Kopf/das Gesicht – starke emotionale Wirkung." },
+      { id: "detail", title: "Detail", text: "Nur ein Ausschnitt (Auge, Hand, Objekt) – lenkt die Aufmerksamkeit gezielt." },
+    ];
+
+    const PERSPEKTIVEN = [
+      { id: "vogelperspektive", title: "Vogelperspektive", text: "Kamera über dem Motiv – wirkt klein, überblickbar, manchmal unterlegen." },
+      { id: "augenhoehe", title: "Augenhöhe", text: "Kamera auf Höhe des Motivs – neutral, „ehrliche” Wirkung." },
+      { id: "froschperspektive", title: "Froschperspektive", text: "Kamera unter dem Motiv, nach oben gerichtet – „von unten = Held”." },
+    ];
+
+    async function renderSvgGrid(containerId, items, folder) {
+      const container = document.getElementById(containerId);
+      for (const item of items) {
+        const card = document.createElement("div");
+        card.className = "svg-card";
+        const frame = document.createElement("div");
+        frame.className = "svg-card__frame";
+        try {
+          const res = await fetch(`../assets/svg/${folder}/${item.id}.svg`);
+          frame.innerHTML = await res.text();
+        } catch (e) {
+          frame.textContent = "Bild konnte nicht geladen werden.";
+        }
+        card.appendChild(frame);
+        card.insertAdjacentHTML(
+          "beforeend",
+          `<div class="svg-card__title">${item.title}</div><p class="svg-card__text">${item.text}</p>`
+        );
+        container.appendChild(card);
+      }
+    }
+
+    renderSvgGrid("einstellungsgroessen-grid", EINSTELLUNGSGROESSEN, "einstellungsgroessen");
+    renderSvgGrid("perspektiven-grid", PERSPEKTIVEN, "perspektiven");
+
+    const QUICK_CHECK = [
+      {
+        szenario: "Du willst zeigen, wo die Szene überhaupt spielt – die ganze Umgebung soll sichtbar sein, die Person darf ruhig klein wirken.",
+        optionen: ["Totale", "Grossaufnahme", "Froschperspektive", "Detail"],
+        loesung: 0,
+        erklaerung: "Die Totale etabliert den Ort – guter Einstieg in eine Sequenz.",
+      },
+      {
+        szenario: "Du willst eine sehr emotionale Einstellung: Jede Gefühlsregung im Gesicht soll klar sichtbar sein.",
+        optionen: ["Halbtotale", "Grossaufnahme", "Vogelperspektive", "Totale"],
+        loesung: 1,
+        erklaerung: "Die Grossaufnahme zeigt nur den Kopf – starke emotionale Wirkung.",
+      },
+      {
+        szenario: "Dein Motiv soll mächtig, imposant und dominant wirken.",
+        optionen: ["Vogelperspektive", "Augenhöhe", "Froschperspektive", "Halbnah"],
+        loesung: 2,
+        erklaerung: "„Von unten = Held” – die Froschperspektive lässt Motive mächtig wirken.",
+      },
+      {
+        szenario: "Klassische Interview-Situation: Kopf bis Brust sichtbar, Mimik gut lesbar.",
+        optionen: ["Detail", "Nah", "Totale", "Vogelperspektive"],
+        loesung: 1,
+        erklaerung: "Nah ist die klassische Interview-/Dialog-Einstellungsgrösse.",
+      },
+    ];
+
+    const qcContainer = document.getElementById("quick-check");
+    const qcSummary = document.getElementById("qc-summary");
+    const completeBtn = document.getElementById("m2-complete-btn");
+    let answeredCount = 0;
+
+    QUICK_CHECK.forEach((q, i) => {
+      const item = document.createElement("div");
+      item.className = "exercise-item";
+      item.innerHTML = `
+        <p><strong>${i + 1}. ${q.szenario}</strong></p>
+        <div class="tree-options" style="display:flex; flex-wrap:wrap; gap:0.6rem;">
+          ${q.optionen.map((o) => `<button type="button" class="btn btn--secondary" data-choice="${o}">${o}</button>`).join("")}
+        </div>
+        <div class="exercise-feedback" data-role="fb"></div>
+      `;
+      qcContainer.appendChild(item);
+      const buttons = item.querySelectorAll("[data-choice]");
+      const fb = item.querySelector("[data-role='fb']");
+      buttons.forEach((btn, idx) => {
+        btn.addEventListener("click", () => {
+          if (btn.disabled) return;
+          buttons.forEach((b) => (b.disabled = true));
+          const correct = idx === q.loesung;
+          fb.className = "exercise-feedback is-visible " + (correct ? "is-correct" : "is-incorrect");
+          fb.innerHTML = `<strong>${correct ? "Genau!" : "Richtig wäre: " + q.optionen[q.loesung]}</strong><br>${q.erklaerung}`;
+          answeredCount++;
+          if (answeredCount === QUICK_CHECK.length) {
+            qcSummary.className = "exercise-summary is-visible";
+            qcSummary.innerHTML = "Alle Situationen durchgespielt – du kannst das Modul jetzt abschliessen.";
+            completeBtn.disabled = false;
+          }
+        });
+      });
+    });
+
+    completeBtn.addEventListener("click", () => {
+      markModuleDone(2);
+      window.location.href = "../index.html";
+    });
+  }
+</script>
+</body>
+</html>

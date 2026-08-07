@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modul 1: Technikabnahme – Filmwerkstatt Sonderwoche</title>
+<meta name="description" content="Modul 1: Die wichtigsten Handyeinstellungen fürs Filmen – interaktive Checkliste.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="../index.html">
+      <span class="brand__mark" aria-hidden="true">🎬</span>
+      Filmwerkstatt Sonderwoche
+    </a>
+    <a class="home-link" href="../index.html">← Übersicht</a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="module-breadcrumb">Modul 1 von 4</div>
+  <div class="progress-wrap">
+    <div id="progress-bar-container"></div>
+  </div>
+
+  <section class="card card--scenario">
+    <span class="tag">Technikabnahme</span>
+    <h1>Was macht ein gutes Video aus?</h1>
+    <p>
+      Bevor du auch nur eine Sekunde filmst: Es gibt ein paar Handy-Einstellungen
+      und Handgriffe, die den Unterschied zwischen "sieht amateurhaft aus" und
+      "wirkt wie professionell gedreht" ausmachen. Geh die Checkliste durch, tipp
+      jeden Punkt an – du siehst dann auch gleich, warum er wichtig ist.
+    </p>
+  </section>
+
+  <section class="card card--exercise">
+    <span class="tag">Checkliste</span>
+    <h2>Technikabnahme-Checkliste</h2>
+    <p class="text-muted">Hak jeden Punkt ab, sobald du ihn an deinem Handy
+      eingestellt bzw. verstanden hast. Antippen zeigt dir die Begründung.</p>
+
+    <ul class="checklist" id="m1-checklist"></ul>
+
+    <div id="m1-summary" class="exercise-summary"></div>
+
+    <div class="btn-row">
+      <button type="button" id="m1-complete-btn" class="btn" disabled>Technikabnahme bestanden ✓</button>
+    </div>
+  </section>
+
+  <section class="box box--tip">
+    <h3>Set-Tipp</h3>
+    <p>Speichere dir diese Punkte im Kopf – im Spickzettel am Ende der
+      Filmwerkstatt findest du sie nochmals als Kurzfassung fürs Lager.</p>
+  </section>
+
+  <nav class="module-nav" id="module-nav" aria-label="Modul-Navigation"></nav>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="disclaimer">
+      Diese Filmwerkstatt vermittelt eine praxisnahe Einführung in Handy-Filmtechnik
+      für Ausbildungszwecke.
+    </div>
+    <button class="reset-btn" id="reset-btn" type="button">Gesamten Fortschritt zurücksetzen</button>
+  </div>
+</footer>
+
+<script type="module">
+  import { renderProgressBar, renderModuleNav, setupResetButton, enforceUnlock, markModuleDone } from "../assets/js/progress.js";
+  import { renderChecklist } from "../assets/js/checklist.js";
+
+  if (enforceUnlock("module", 1)) {
+    renderProgressBar(document.getElementById("progress-bar-container"), "Modul 1 von 4");
+    renderModuleNav(document.getElementById("module-nav"), 1);
+    setupResetButton(document.getElementById("reset-btn"));
+
+    const ITEMS = [
+      { id: "landscape", text: "Immer quer filmen (Landscape)", why: "Hochkant-Videos wirken auf grossen Bildschirmen (Beamer, TV, Leinwand am Lagerende) unprofessionell und erzwingen schwarze Balken." },
+      { id: "raster", text: "Gitter/Raster aktivieren, Drittelregel anwenden", why: "Wichtige Bildelemente (Augen, Horizont) auf die Rasterlinien bzw. -schnittpunkte legen statt zentriert – wirkt dynamischer und professioneller." },
+      { id: "aelock", text: "Fokus & Belichtung antippen und sperren (AE/AF-Lock)", why: "Verhindert, dass das Bild ständig „pumpt” (nachfokussiert/nachbelichtet), wenn sich im Bild etwas bewegt oder die Kamera leicht wackelt." },
+      { id: "zoom", text: "Nicht digital zoomen – lieber näher hingehen", why: "Digitaler Zoom verschlechtert die Bildqualität sichtbar (Pixelmatsch); ein optischer „Zoom mit den Füssen” bringt bessere Ergebnisse." },
+      { id: "ruhig", text: "Ruhig halten: beide Hände, Ellbogen anlegen, abstützen", why: "Fensterrahmen, Sitzlehne oder der eigene Körper wirken als Stativ-Ersatz und reduzieren Verwacklungen." },
+      { id: "linse", text: "Linse putzen, genug Licht suchen", why: "Fingerabdrücke auf der Linse sind der häufigste Grund für unscharfe Handyvideos; Gegenlicht (z. B. direkt gegen die tiefstehende Sonne im Zugfenster) vermeiden." },
+      { id: "mikro", text: "Mikrofon und ggf. Gimbal testen", why: "Schlechter Ton ruiniert ein gutes Bild schneller als umgekehrt – vorher testen, bevor es ernst wird." },
+    ];
+
+    const completeBtn = document.getElementById("m1-complete-btn");
+    const summary = document.getElementById("m1-summary");
+
+    renderChecklist(document.getElementById("m1-checklist"), ITEMS, (allChecked, checkedCount, total) => {
+      if (allChecked) {
+        summary.className = "exercise-summary is-visible";
+        summary.innerHTML = `<strong>${checkedCount} von ${total} Punkten abgehakt.</strong> Technikabnahme bestanden – weiter geht's mit der Bildsprache!`;
+        completeBtn.disabled = false;
+      } else {
+        summary.className = "exercise-summary is-visible";
+        summary.innerHTML = `${checkedCount} von ${total} Punkten abgehakt. Für die Technikabnahme müssen alle Punkte abgehakt sein.`;
+        completeBtn.disabled = true;
+      }
+    });
+
+    completeBtn.addEventListener("click", () => {
+      markModuleDone(1);
+      window.location.href = "../index.html";
+    });
+  }
+</script>
+</body>
+</html>

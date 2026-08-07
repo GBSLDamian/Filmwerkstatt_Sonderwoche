@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="268 70 40 30" width="40" height="30" role="img" aria-label="Detail: nur ein Auge füllt den Rahmen">
+  <g fill="none" stroke="var(--color-primary)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="300" cy="90" r="30"/>
+  </g>
+  <circle cx="288" cy="85" r="5" fill="var(--color-accent)"/>
+</svg>

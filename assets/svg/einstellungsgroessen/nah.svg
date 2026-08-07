@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="206 45 188 141" width="188" height="141" role="img" aria-label="Nah: Figur von Kopf bis Brust sichtbar">
+  <g fill="none" stroke="var(--color-primary)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="300" cy="90" r="30"/>
+    <line x1="300" y1="130" x2="300" y2="330"/>
+    <line x1="300" y1="150" x2="230" y2="230"/>
+    <line x1="300" y1="150" x2="370" y2="230"/>
+  </g>
+  <circle cx="288" cy="85" r="5" fill="var(--color-accent)"/>
+  <circle cx="312" cy="85" r="5" fill="var(--color-accent)"/>
+</svg>

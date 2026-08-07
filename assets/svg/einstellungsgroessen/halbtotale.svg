@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 50 640 480" width="640" height="480" role="img" aria-label="Halbtotale: Figur komplett von Kopf bis Fuss sichtbar">
+  <circle cx="720" cy="-40" r="60" fill="var(--color-accent)" opacity="0.35"/>
+  <line x1="-400" y1="520" x2="1000" y2="520" stroke="var(--color-text-muted)" stroke-width="4" opacity="0.5"/>
+  <polygon points="60,520 220,300 380,520" fill="var(--color-text-muted)" opacity="0.35"/>
+  <g fill="none" stroke="var(--color-primary)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="300" cy="90" r="30"/>
+    <line x1="300" y1="130" x2="300" y2="330"/>
+    <line x1="300" y1="150" x2="230" y2="230"/>
+    <line x1="300" y1="150" x2="370" y2="230"/>
+    <line x1="300" y1="330" x2="240" y2="520"/>
+    <line x1="300" y1="330" x2="360" y2="520"/>
+  </g>
+  <circle cx="288" cy="85" r="5" fill="var(--color-accent)"/>
+  <circle cx="312" cy="85" r="5" fill="var(--color-accent)"/>
+</svg>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modul 4: Filmformate kombinieren – Filmwerkstatt Sonderwoche</title>
+<meta name="description" content="Modul 4: Imagefilm, Werbespot, Mini-Doku, Action-Cam und Testimonial – Perspektive, Rhythmus und Musik gezielt kombinieren.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="../index.html">
+      <span class="brand__mark" aria-hidden="true">🎬</span>
+      Filmwerkstatt Sonderwoche
+    </a>
+    <a class="home-link" href="../index.html">← Übersicht</a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="module-breadcrumb">Modul 4 von 4</div>
+  <div class="progress-wrap">
+    <div id="progress-bar-container"></div>
+  </div>
+
+  <section class="card card--scenario">
+    <span class="tag">Filmformate</span>
+    <h1>Perspektive, Rhythmus &amp; Musik gezielt kombinieren</h1>
+    <p>
+      Jedes Video-Format hat seinen eigenen "Sound": eine typische Kombination aus
+      Kamera-Perspektive, Schnitttempo und Musik. Kennst du diese Kombination,
+      kannst du im Lager gezielt den passenden Stil für dein Projekt wählen –
+      statt einfach drauflos zu filmen.
+    </p>
+  </section>
+
+  <section class="card card--exercise">
+    <span class="tag">Zuordnungsspiel</span>
+    <h2>Format und Merkmale verbinden</h2>
+    <p class="text-muted">Tippe zuerst auf ein Format links, dann auf die
+      passenden Merkmale rechts (Perspektive · Rhythmus · Musik).</p>
+
+    <h3 class="text-muted" style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.03em;">Format</h3>
+    <div class="memory-board" id="fm-cards"></div>
+
+    <h3 class="text-muted" style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.03em; margin-top:1.2rem;">Merkmale</h3>
+    <div class="memory-board" id="fm-rules"></div>
+
+    <div id="fm-feedback" class="exercise-feedback"></div>
+  </section>
+
+  <section class="card card--theory">
+    <span class="tag">Beispiele</span>
+    <h2>So sieht's in echt aus</h2>
+    <p class="text-muted">Offizielle Beispielvideos je Format – zum Reinschauen,
+      nicht Pflicht.</p>
+    <div id="video-examples"></div>
+  </section>
+
+  <section class="card card--exercise">
+    <span class="tag">Für den Spickzettel</span>
+    <h2>Welches Format willst du im Lager zuerst ausprobieren?</h2>
+    <select id="wunschformat-select">
+      <option value="">– bitte wählen –</option>
+    </select>
+    <div class="btn-row">
+      <button type="button" id="m4-complete-btn" class="btn" disabled>Modul 4 abschliessen</button>
+    </div>
+    <p class="text-muted" id="m4-hint" style="font-size:0.85rem; margin-top:0.6rem;">Schliess zuerst alle 5 Zuordnungen ab.</p>
+  </section>
+
+  <nav class="module-nav" id="module-nav" aria-label="Modul-Navigation"></nav>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <h4>Weiterführende Links</h4>
+    <ul>
+      <li><a href="https://filmpuls.info/filmbezeichungen-filmkategorie-auftragsproduktion/" target="_blank" rel="noopener">Filmpuls – Filmkategorien für Auftragsproduktionen</a></li>
+    </ul>
+    <div class="disclaimer">Diese Filmwerkstatt vermittelt eine praxisnahe Einführung in Filmformate für Ausbildungszwecke.</div>
+    <button class="reset-btn" id="reset-btn" type="button">Gesamten Fortschritt zurücksetzen</button>
+  </div>
+</footer>
+
+<script type="module">
+  import { renderProgressBar, renderModuleNav, setupResetButton, enforceUnlock, markModuleDone, saveWunschformat } from "../assets/js/progress.js";
+  import { initFormatMatcher } from "../assets/js/format-matcher.js";
+
+  if (enforceUnlock("module", 4)) {
+    renderProgressBar(document.getElementById("progress-bar-container"), "Modul 4 von 4");
+    renderModuleNav(document.getElementById("module-nav"), 4);
+    setupResetButton(document.getElementById("reset-btn"));
+
+    const completeBtn = document.getElementById("m4-complete-btn");
+    const hint = document.getElementById("m4-hint");
+    const select = document.getElementById("wunschformat-select");
+    let matcherDone = false;
+
+    function checkCompletion() {
+      const ok = matcherDone && select.value;
+      completeBtn.disabled = !ok;
+      if (!matcherDone) {
+        hint.textContent = "Schliess zuerst alle 5 Zuordnungen ab.";
+      } else if (!select.value) {
+        hint.textContent = "Wähl noch dein Wunschformat aus.";
+      } else {
+        hint.textContent = "Bereit – weiter zum Spickzettel!";
+      }
+    }
+
+    initFormatMatcher({
+      cardsEl: document.getElementById("fm-cards"),
+      rulesEl: document.getElementById("fm-rules"),
+      feedbackEl: document.getElementById("fm-feedback"),
+      onAllMatched: (formate) => {
+        matcherDone = true;
+        checkCompletion();
+      },
+    }).then((formate) => {
+      formate.forEach((f) => {
+        const opt = document.createElement("option");
+        opt.value = f.id;
+        opt.textContent = f.name;
+        select.appendChild(opt);
+      });
+
+      const videoContainer = document.getElementById("video-examples");
+      formate.forEach((f) => {
+        const wrap = document.createElement("div");
+        wrap.className = "video-wrap";
+        wrap.innerHTML = `
+          <iframe src="https://www.youtube-nocookie.com/embed/${f.video.id}" title="${f.video.titel}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="video-offline-note">📡 Dieses Video braucht Internetverbindung. Der Rest der Seite funktioniert auch offline weiter.</div>
+        `;
+        const setOnlineState = () => wrap.classList.toggle("is-offline", !navigator.onLine);
+        setOnlineState();
+        window.addEventListener("online", setOnlineState);
+        window.addEventListener("offline", setOnlineState);
+
+        const heading = document.createElement("h3");
+        heading.textContent = f.name;
+        const caption = document.createElement("p");
+        caption.className = "video-caption";
+        caption.textContent = `Beispiel: „${f.video.titel}” – Kanal: ${f.video.kanal} (YouTube)`;
+
+        videoContainer.appendChild(heading);
+        videoContainer.appendChild(wrap);
+        videoContainer.appendChild(caption);
+      });
+    });
+
+    select.addEventListener("change", checkCompletion);
+
+    completeBtn.addEventListener("click", () => {
+      saveWunschformat(select.value);
+      markModuleDone(4);
+      window.location.href = "../index.html";
+    });
+  }
+</script>
+</body>
+</html>

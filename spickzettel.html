@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spickzettel fürs Lager – Filmwerkstatt Sonderwoche</title>
+<meta name="description" content="Dein persönlicher, druckbarer Spickzettel mit den wichtigsten Filmtipps fürs Lager.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<header class="site-header no-print">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true">🎬</span>
+      Filmwerkstatt Sonderwoche
+    </a>
+    <a class="home-link" href="index.html">← Übersicht</a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="module-breadcrumb no-print">Spickzettel fürs Lager</div>
+
+  <h1>🎬 Dein Spickzettel fürs Lager</h1>
+  <p class="text-muted">Alles Wichtige aus der Filmwerkstatt auf einen Blick –
+    zum Ausdrucken oder als PDF speichern.</p>
+
+  <div id="wunschformat-highlight"></div>
+
+  <section class="card">
+    <h2>Handy-Checkliste</h2>
+    <ul>
+      <li>Immer <strong>quer</strong> filmen (Landscape)</li>
+      <li><strong>Gitter</strong> aktivieren, Drittelregel anwenden</li>
+      <li>Fokus &amp; Belichtung <strong>antippen und sperren</strong> (AE/AF-Lock)</li>
+      <li><strong>Nicht digital zoomen</strong> – lieber näher hingehen</li>
+      <li><strong>Ruhig halten:</strong> beide Hände, Ellbogen abstützen</li>
+      <li><strong>Linse putzen</strong>, genug Licht suchen, Gegenlicht vermeiden</li>
+      <li><strong>Mikrofon</strong> (und ggf. Gimbal) vorher testen</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Einstellungsgrössen</h2>
+    <div class="spickzettel-icon-row" id="eg-icons"></div>
+    <h2>Perspektiven</h2>
+    <div class="spickzettel-icon-row" id="pv-icons"></div>
+    <div class="box box--rule">
+      <p class="mb-0"><strong>Merksatz:</strong> Nie mehr als eine Einstellungsgrösse überspringen. „Von unten = Held.”</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Filmformate im Überblick</h2>
+    <div style="overflow-x:auto;">
+      <table class="spickzettel-table" id="formate-table">
+        <thead>
+          <tr><th>Format</th><th>Perspektive</th><th>Rhythmus</th><th>Musik</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="disclaimer">
+    Dieser Spickzettel ist ein Lern-/Vorbereitungswerkzeug für die Filmwerkstatt
+    Sonderwoche – kein Testnachweis. Viel Erfolg beim Dreh im Lager!
+  </div>
+
+  <div class="btn-row no-print">
+    <button type="button" class="btn" onclick="window.print()">Drucken / Als PDF speichern</button>
+    <a class="btn btn--secondary" href="index.html">Zurück zur Übersicht</a>
+  </div>
+</main>
+
+<footer class="site-footer no-print">
+  <div class="site-footer__inner">
+    <button class="reset-btn" id="reset-btn" type="button">Gesamten Fortschritt zurücksetzen</button>
+  </div>
+</footer>
+
+<script type="module">
+  import { setupResetButton, enforceUnlock, getWunschformat } from "./assets/js/progress.js";
+
+  if (enforceUnlock("spickzettel")) {
+    setupResetButton(document.getElementById("reset-btn"));
+
+    const EINSTELLUNGSGROESSEN = ["totale", "halbtotale", "halbnah", "nah", "gross", "detail"];
+    const EG_LABELS = { totale: "Totale", halbtotale: "Halbtotale", halbnah: "Halbnah", nah: "Nah", gross: "Gross", detail: "Detail" };
+    const PERSPEKTIVEN = ["vogelperspektive", "augenhoehe", "froschperspektive"];
+    const PV_LABELS = { vogelperspektive: "Vogel", augenhoehe: "Augenhöhe", froschperspektive: "Frosch" };
+
+    async function renderIcons(containerId, ids, folder, labels) {
+      const container = document.getElementById(containerId);
+      for (const id of ids) {
+        const el = document.createElement("div");
+        el.className = "spickzettel-icon";
+        try {
+          const res = await fetch(`assets/svg/${folder}/${id}.svg`);
+          el.innerHTML = await res.text();
+        } catch (e) {}
+        el.insertAdjacentHTML("beforeend", `<span>${labels[id]}</span>`);
+        container.appendChild(el);
+      }
+    }
+    renderIcons("eg-icons", EINSTELLUNGSGROESSEN, "einstellungsgroessen", EG_LABELS);
+    renderIcons("pv-icons", PERSPEKTIVEN, "perspektiven", PV_LABELS);
+
+    fetch("data/formate.json")
+      .then((r) => r.json())
+      .then((data) => {
+        const wunsch = getWunschformat();
+        const tbody = document.querySelector("#formate-table tbody");
+        data.formate.forEach((f) => {
+          const tr = document.createElement("tr");
+          if (f.id === wunsch) tr.style.fontWeight = "700";
+          tr.innerHTML = `
+            <td>${f.id === wunsch ? "⭐ " : ""}${f.name}</td>
+            <td>${f.perspektive.split(".")[0]}</td>
+            <td>${f.rhythmus.split(".")[0]}</td>
+            <td>${f.musik.split(".")[0]}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        const highlight = document.getElementById("wunschformat-highlight");
+        const wunschFormat = data.formate.find((f) => f.id === wunsch);
+        if (wunschFormat) {
+          highlight.innerHTML = `
+            <div class="spickzettel-highlight">
+              <div class="tag">Dein Wunschformat</div>
+              <h2 class="mb-0">${wunschFormat.name}</h2>
+              <p class="mb-0 text-muted">${wunschFormat.zweck}</p>
+            </div>
+          `;
+        }
+      });
+  }
+</script>
+</body>
+</html>

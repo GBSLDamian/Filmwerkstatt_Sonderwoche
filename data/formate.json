@@ -1,0 +1,74 @@
+{
+  "formate": [
+    {
+      "id": "imagefilm",
+      "name": "Imagefilm / Unternehmensfilm",
+      "zweck": "Markenwerte erlebbar machen, Vertrauen aufbauen – oft mit einer kleinen Geschichte (\"rotem Faden\").",
+      "perspektive": "Meist Augenhöhe, gelegentlich leichte Aufsicht für Überblicks-/Establishing-Shots.",
+      "einstellungsgroessen": "Mix – startet oft mit Totale/Halbtotale (Ort etablieren), dann Halbnah/Nah für Personen.",
+      "rhythmus": "Ruhig bis mittel, fliessend, keine hektischen Schnitte.",
+      "musik": "Warm, positiv, unterstützend im Hintergrund, oft leicht emotional.",
+      "video": {
+        "id": "ZBY-18lPAgk",
+        "titel": "Victorinox Brand Movie 2017 (Deutsch)",
+        "kanal": "Victorinox AG"
+      }
+    },
+    {
+      "id": "werbespot",
+      "name": "Werbespot / Social Ad",
+      "zweck": "In sehr kurzer Zeit (oft nur 6–30 Sekunden) Aufmerksamkeit und einen Kaufimpuls erzeugen.",
+      "perspektive": "Dynamisch, bewusst auch ungewöhnliche Blickwinkel, um aufzufallen.",
+      "einstellungsgroessen": "Schneller Wechsel, viele Nah-/Detailaufnahmen (Produkt im Fokus).",
+      "rhythmus": "Schnell, prägnant – die ersten Sekunden entscheiden.",
+      "musik": "Eingängig, treibend, mit klarem Wiedererkennungswert.",
+      "video": {
+        "id": "UWf3ow0TvLU",
+        "titel": "Migros Weihnachten 2017: Wer steckt denn da in den Migroskassen?",
+        "kanal": "Migros"
+      }
+    },
+    {
+      "id": "minidoku",
+      "name": "Mini-Dokumentation",
+      "zweck": "Eine reale Situation, Person oder ein Ereignis möglichst authentisch einfangen.",
+      "perspektive": "Zurückhaltend, meist Augenhöhe – extreme Perspektiven wirken schnell inszeniert.",
+      "einstellungsgroessen": "Viele Halbtotale/Halbnah für Kontext, Interviews meist in Nah.",
+      "rhythmus": "Ruhig, längere Einstellungen, Schnitte folgen dem Inhalt, nicht einem Beat.",
+      "musik": "Sehr sparsam und dezent, oft nur atmosphärisch oder ganz ohne Musik (Original-Ton).",
+      "video": {
+        "id": "yrHg1OJfnZ0",
+        "titel": "YETI Presents | The Ballad of Pecos Hank",
+        "kanal": "YETI"
+      }
+    },
+    {
+      "id": "actionsport",
+      "name": "Action-Sport-Video / Highlight-Reel",
+      "zweck": "Energie, Tempo, Adrenalin spürbar machen.",
+      "perspektive": "Viel Froschperspektive (\"von unten = Held\"), oft POV (Helmkamera), häufige Wechsel.",
+      "einstellungsgroessen": "Wechsel zwischen Totale (Umgebung) und Detail (Ausrüstung, Gesichtsausdruck).",
+      "rhythmus": "Sehr schnell, harte Schnitte (Jump Cuts), Tempo-Effekte, kurze Zeitlupen-Momente.",
+      "musik": "Treibend, energiegeladen – Schnitte oft exakt auf den Takt der Musik (\"Beat Sync\").",
+      "video": {
+        "id": "Yb2cX8qwCho",
+        "titel": "GoPro: Best of 2023",
+        "kanal": "GoPro"
+      }
+    },
+    {
+      "id": "testimonial",
+      "name": "Testimonial / Interview",
+      "zweck": "Eine Person mit Vorbild-/Referenzcharakter kommt glaubwürdig zu Wort.",
+      "perspektive": "Augenhöhe, sehr zurückhaltend – die Aussage steht im Zentrum, nicht die Kameraarbeit.",
+      "einstellungsgroessen": "Meist Nah oder Halbnah, ruhig gehalten (Stativ/Abstützen).",
+      "rhythmus": "Ruhig, Schnitte meist nur zwischen Sinnabschnitten der Aussage.",
+      "musik": "Sehr zurückhaltend oder keine, damit die gesprochenen Worte im Fokus bleiben.",
+      "video": {
+        "id": "LP5MEDTz-sU",
+        "titel": "Patagonia | What We Do",
+        "kanal": "Patagonia"
+      }
+    }
+  ]
+}
