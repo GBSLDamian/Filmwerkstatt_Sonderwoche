@@ -133,24 +133,33 @@
       formate.forEach((f) => {
         const heading = document.createElement("h3");
         heading.textContent = f.name;
-
-        const wrap = document.createElement("div");
-        wrap.className = "video-facade";
-        wrap.innerHTML = `
-          <img class="video-facade__thumb" src="https://i.ytimg.com/vi/${f.video.id}/hqdefault.jpg" alt="Vorschaubild: ${f.video.titel}" loading="lazy">
-          <button type="button" class="video-facade__play" aria-label="Video laden und abspielen: ${f.video.titel}"></button>
-        `;
-        wrap.querySelector(".video-facade__play").addEventListener("click", () => {
-          wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${f.video.id}?autoplay=1" title="${f.video.titel}" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-        });
-
-        const caption = document.createElement("p");
-        caption.className = "video-caption";
-        caption.innerHTML = `Beispiel: „${f.video.titel}” – Kanal: ${f.video.kanal}${f.video.hinweis ? " · " + f.video.hinweis : ""} · <a href="https://www.youtube.com/watch?v=${f.video.id}" target="_blank" rel="noopener">Direkt auf YouTube ansehen ↗</a>`;
-
         videoContainer.appendChild(heading);
-        videoContainer.appendChild(wrap);
-        videoContainer.appendChild(caption);
+
+        const pair = document.createElement("div");
+        pair.className = "video-pair";
+        videoContainer.appendChild(pair);
+
+        f.videos.forEach((video) => {
+          const item = document.createElement("div");
+
+          const wrap = document.createElement("div");
+          wrap.className = "video-facade";
+          wrap.innerHTML = `
+            <img class="video-facade__thumb" src="https://i.ytimg.com/vi/${video.id}/hqdefault.jpg" alt="Vorschaubild: ${video.titel}" loading="lazy">
+            <button type="button" class="video-facade__play" aria-label="Video laden und abspielen: ${video.titel}"></button>
+          `;
+          wrap.querySelector(".video-facade__play").addEventListener("click", () => {
+            wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1" title="${video.titel}" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          });
+
+          const caption = document.createElement("p");
+          caption.className = "video-caption";
+          caption.innerHTML = `Beispiel: „${video.titel}” – Kanal: ${video.kanal}${video.hinweis ? " · " + video.hinweis : ""} · <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" rel="noopener">Direkt auf YouTube ansehen ↗</a>`;
+
+          item.appendChild(wrap);
+          item.appendChild(caption);
+          pair.appendChild(item);
+        });
       });
     });
 

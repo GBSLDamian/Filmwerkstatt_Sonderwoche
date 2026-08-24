@@ -8,11 +8,18 @@
       "einstellungsgroessen": "Mix – startet oft mit Totale/Halbtotale (Ort etablieren), dann Halbnah/Nah für Personen.",
       "rhythmus": "Ruhig bis mittel, fliessend, keine hektischen Schnitte.",
       "musik": "Warm, positiv, unterstützend im Hintergrund, oft leicht emotional.",
-      "video": {
-        "id": "ZBY-18lPAgk",
-        "titel": "Victorinox Brand Movie 2017 (Deutsch)",
-        "kanal": "Victorinox AG"
-      }
+      "videos": [
+        {
+          "id": "ZBY-18lPAgk",
+          "titel": "Victorinox Brand Movie 2017 (Deutsch)",
+          "kanal": "Victorinox AG"
+        },
+        {
+          "id": "tTEVyq5dTDg",
+          "titel": "Lindt Home of Chocolate – Eine Vision, welche Form annimmt",
+          "kanal": "Lindt Chocolate World"
+        }
+      ]
     },
     {
       "id": "werbespot",
@@ -22,12 +29,20 @@
       "einstellungsgroessen": "Schneller Wechsel, viele Nah-/Detailaufnahmen (Produkt im Fokus).",
       "rhythmus": "Schnell, prägnant – die ersten Sekunden entscheiden.",
       "musik": "Eingängig, treibend, mit klarem Wiedererkennungswert.",
-      "video": {
-        "id": "QVNZRHIZVL8",
-        "titel": "Orange – La Compil des Bleues (English version)",
-        "kanal": "Marcel",
-        "hinweis": "Cannes-Lions-Grand-Prix-Gewinner 2024 (Entertainment for Sport)"
-      }
+      "videos": [
+        {
+          "id": "QVNZRHIZVL8",
+          "titel": "Orange – La Compil des Bleues (English version)",
+          "kanal": "Marcel",
+          "hinweis": "Cannes-Lions-Grand-Prix-Gewinner 2024 (Entertainment for Sport)"
+        },
+        {
+          "id": "V0MRKMwzsG0",
+          "titel": "MIGROS: Die Superhäslis sind da.",
+          "kanal": "Migros",
+          "hinweis": "Meistgesehener YouTube-Werbespot der Schweiz 2019"
+        }
+      ]
     },
     {
       "id": "minidoku",
@@ -37,12 +52,19 @@
       "einstellungsgroessen": "Viele Halbtotale/Halbnah für Kontext, Interviews meist in Nah.",
       "rhythmus": "Ruhig, längere Einstellungen, Schnitte folgen dem Inhalt, nicht einem Beat.",
       "musik": "Sehr sparsam und dezent, oft nur atmosphärisch oder ganz ohne Musik (Original-Ton).",
-      "video": {
-        "id": "vPFkcoTfr7g",
-        "titel": "The Queen of Basketball",
-        "kanal": "New York Times Opinion (Op-Docs)",
-        "hinweis": "Oscar-Gewinner 2022, Bester Dokumentarkurzfilm"
-      }
+      "videos": [
+        {
+          "id": "vPFkcoTfr7g",
+          "titel": "The Queen of Basketball",
+          "kanal": "New York Times Opinion (Op-Docs)",
+          "hinweis": "Oscar-Gewinner 2022, Bester Dokumentarkurzfilm"
+        },
+        {
+          "id": "X0arJe8DAtI",
+          "titel": "On | RUN – The Athlete Refugee Team Story",
+          "kanal": "On"
+        }
+      ]
     },
     {
       "id": "actionsport",
@@ -52,11 +74,18 @@
       "einstellungsgroessen": "Wechsel zwischen Totale (Umgebung) und Detail (Ausrüstung, Gesichtsausdruck).",
       "rhythmus": "Sehr schnell, harte Schnitte (Jump Cuts), Tempo-Effekte, kurze Zeitlupen-Momente.",
       "musik": "Treibend, energiegeladen – Schnitte oft exakt auf den Takt der Musik (\"Beat Sync\").",
-      "video": {
-        "id": "036S6vboR_M",
-        "titel": "Almost Ablaze – Official Trailer",
-        "kanal": "Teton Gravity Research"
-      }
+      "videos": [
+        {
+          "id": "036S6vboR_M",
+          "titel": "Almost Ablaze – Official Trailer",
+          "kanal": "Teton Gravity Research"
+        },
+        {
+          "id": "wbejDNtKYig",
+          "titel": "Soul Flyers BASE Jump INTO A Plane | How Was It Made?",
+          "kanal": "Red Bull"
+        }
+      ]
     },
     {
       "id": "testimonial",
@@ -66,11 +95,18 @@
       "einstellungsgroessen": "Meist Nah oder Halbnah, ruhig gehalten (Stativ/Abstützen).",
       "rhythmus": "Ruhig, Schnitte meist nur zwischen Sinnabschnitten der Aussage.",
       "musik": "Sehr zurückhaltend oder keine, damit die gesprochenen Worte im Fokus bleiben.",
-      "video": {
-        "id": "LP5MEDTz-sU",
-        "titel": "Patagonia | What We Do",
-        "kanal": "Patagonia"
-      }
+      "videos": [
+        {
+          "id": "LP5MEDTz-sU",
+          "titel": "Patagonia | What We Do",
+          "kanal": "Patagonia"
+        },
+        {
+          "id": "TIAWbhVWS2I",
+          "titel": "Rada | Airbnb Host Stories",
+          "kanal": "Airbnb"
+        }
+      ]
     }
   ]
 }
